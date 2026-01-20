@@ -1,0 +1,4 @@
+node_modules
+temp/*.cpp
+temp/*.out
+.DS_Store

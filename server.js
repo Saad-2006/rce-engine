@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { generateFile } = require('./api/compiler'); // Import your function
+const { generateFile, executeCpp } = require('./api/compiler'); // Import your function
 
 const app = express();
 app.use(bodyParser.json());
 
-app.post('/run', (req, res) => {
+app.post('/run', async(req, res) => {
     const { language, code } = req.body;
     
     if (!code) {
@@ -13,13 +13,11 @@ app.post('/run', (req, res) => {
     }
 
     try {
-        // CALL YOUR FUNCTION HERE
+
         const filePath = generateFile(language, code);
         
-        res.json({ 
-            success: true, 
-            message: `File successfully saved at: ${filePath}` 
-        });
+        const output = await executeCpp(filePath);
+        res.json({ filePath, output});
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }

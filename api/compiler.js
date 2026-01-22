@@ -16,12 +16,21 @@ exports.generateFile = (format, content) => {
     return filePath;
 };
 
-exports.executeCpp = (filePath)=>{
+exports.executeCode = (filePath, language)=>{
     const jobId = path.basename(filePath).split('.')[0];
     const outPath = path.join(path.dirname(filePath), `${jobId}.out`);
 
+    let command;
     // this is the command we need to execute to run and compile the code.
-    const command = `g++ ${filePath} -o ${outPath} && ${outPath}`;
+    if(language==="cpp") {
+        command = `g++ ${filePath} -o ${outPath} && ${outPath}`;
+    }
+    else if(language==="py") {
+        command = `python3 ${filePath}`;
+    }
+    else{
+        return Promise.reject("Unsupported Language!");
+    }
 
     // execution of code goes here
     return new Promise((resolve, reject)=>{

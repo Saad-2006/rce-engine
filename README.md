@@ -10,8 +10,10 @@
 ## 🚧 Project Status: Loading v1.0...
 **Backend Core:**
 `[████████████████████] 100% (Complete)`
+
 **Frontend Interface:**
 `[░░░░░░░░░░░░░░░░░░░░] 0% (Coming Soon)`
+
 ---
 
 ## ⚡ Features (The "Tickets")

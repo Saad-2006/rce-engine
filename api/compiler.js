@@ -25,12 +25,18 @@ exports.executeCpp = (filePath)=>{
 
     // execution of code goes here
     return new Promise((resolve, reject)=>{
-        exec(command, (error, stdout, stderr)=>{
+        exec(command,{timeout:3000}, (error, stdout, stderr)=>{
+            if(error && error.killed){
+                reject({error:"Time Limit Exceeded!", stderr});
+                return;
+            }
             if(error){
-                reject({error, stderr});
+                reject({error:error.message, stderr});
+                return;
             }
             if(stderr){
                 reject(stderr);
+                return;
             }
             resolve(stdout);
         })

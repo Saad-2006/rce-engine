@@ -21,7 +21,7 @@ app.post('/run', async(req, res) => {
         const output = await executeCpp(filePath);
         res.json({ filePath, output});
     } catch (err) {
-        res.status(500).json({ success: false, error: err.message });
+        res.status(500).json({ success: false, error: err.error||err.message||err });
     }
     finally{
         if(fs.existsSync(filePath)){

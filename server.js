@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { generateFile, executeCpp } = require('./api/compiler'); // Import your function
+const { generateFile, executeCode } = require('./api/compiler'); // Import your function
 const fs = require('fs');
 const path = require('path');
 const app = express();
@@ -18,7 +18,7 @@ app.post('/run', async(req, res) => {
         filePath = generateFile(language, code);
         const jobID=path.basename(filePath).split('.')[0];
         outPath=path.join(path.dirname(filePath), `${jobID}.out`);
-        const output = await executeCpp(filePath);
+        const output = await executeCode(filePath, language);
         res.json({ filePath, output});
     } catch (err) {
         res.status(500).json({ success: false, error: err.error||err.message||err });

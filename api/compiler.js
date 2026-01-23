@@ -1,53 +1,67 @@
 const fs = require('fs');
 const path = require('path');
-const {exec} = require('child_process');
-const { stdout, stderr } = require('process');
+const { exec } = require('child_process');
 
+/**
+ * Generates a file with the provided code content.
+ * Returns the absolute file path.
+ */
 exports.generateFile = (format, content) => {
-    // 1. Generate a unique ID (timestamp - random number)
-    const jobId = Date.now()-Math.random();
-    // 2. create the filename 
-    const filename = `${jobId}.${format}`; // 1768.cpp
-    // 3. Construct the full path using path.join()
-    const filePath = path.join(__dirname, '..', 'temp', filename);
-    // 4. Write the file to disk
-    fs.writeFileSync(filePath, content);
+    const jobID = Date.now().toString(); // Simple unique ID
+    const filename = `${jobID}.${format}`;
+    
+    // Path: Go up one level (..) to root, then into 'temp'
+    const dirCodes = path.join(__dirname, '..', 'temp');
 
+    // Ensure 'temp' directory exists
+    if (!fs.existsSync(dirCodes)) {
+        fs.mkdirSync(dirCodes, { recursive: true });
+    }
+
+    const filePath = path.join(dirCodes, filename);
+    fs.writeFileSync(filePath, content);
     return filePath;
 };
 
-exports.executeCode = (filePath, language)=>{
-    const jobId = path.basename(filePath).split('.')[0];
-    const outPath = path.join(path.dirname(filePath), `${jobId}.out`);
+/**
+ * Compiles and executes the code file.
+ * Returns a Promise that resolves with stdout or rejects with error.
+ */
+exports.executeCode = (filePath, language) => {
+    const jobID = path.basename(filePath).split('.')[0];
+    const outPath = path.join(path.dirname(filePath), `${jobID}.out`);
 
     let command;
-    // this is the command we need to execute to run and compile the code.
-    if(language==="cpp") {
-        command = `g++ ${filePath} -o ${outPath} && ${outPath}`;
-    }
-    else if(language==="py") {
-        command = `python3 ${filePath}`;
-    }
-    else{
-        return Promise.reject("Unsupported Language!");
+
+    if (language === "cpp") {
+        // C++: Compile to .out, then run
+        // Double quotes handle paths with spaces
+        command = `g++ "${filePath}" -o "${outPath}" && "${outPath}"`;
+    } 
+    else if (language === "py") {
+        // Python 3: Interpret directly
+        command = `python3 "${filePath}"`;
+    } 
+    else {
+        return Promise.reject("Unsupported Language");
     }
 
-    // execution of code goes here
-    return new Promise((resolve, reject)=>{
-        exec(command,{timeout:3000}, (error, stdout, stderr)=>{
-            if(error && error.killed){
-                reject({error:"Time Limit Exceeded!", stderr});
+    return new Promise((resolve, reject) => {
+        // Timeout: 5 seconds max execution time
+        exec(command, { timeout: 5000 }, (error, stdout, stderr) => {
+            if (error) {
+                // 1. Time Limit Exceeded
+                if (error.killed) {
+                    reject({ error: "Time Limit Exceeded (5s)" });
+                    return;
+                }
+                // 2. Compilation/Runtime Error
+                // Prioritize stderr (compiler messages), fallback to error message
+                reject({ error: error.message, stderr: stderr || error.message });
                 return;
             }
-            if(error){
-                reject({error:error.message, stderr});
-                return;
-            }
-            if(stderr){
-                reject(stderr);
-                return;
-            }
+            // 3. Success
             resolve(stdout);
-        })
-    })
-}
+        });
+    });
+};

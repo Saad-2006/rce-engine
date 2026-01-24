@@ -1,19 +1,19 @@
-```
+```markdown
 # 🚀 Remote Code Execution (RCE) Engine
-```
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D%2018.0.0-brightgreen)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
-![Status](https://img.shields.io/badge/status-cloud--ready-success)
-```
-> A robust, safe, and bilingual (C++ & Python) remote code execution engine built with Node.js. Now featuring a professional Cyberpunk-themed frontend and Docker containerization for cloud deployment.
+![Status](https://img.shields.io/badge/status-cloud--live-success)
+
+> A robust, safe, and bilingual (C++ & Python) remote code execution engine built with Node.js. Now featuring a professional Cyberpunk-themed frontend, Docker containerization, and live cloud deployment.
 
 ---
 
-## 🚧 Project Status: Version 1.5 (Cloud Ready)
+## 🚧 Project Status: Version 2.0 (Live Production)
 **Backend Core:** `[████████████████████] 100% (Stable)`
 **Frontend UI:** `[████████████████████] 100% (Polished)`
-**Dockerization:** `[████████████████████] 100% (Completed)`
+**Cloud Deployment:** `[████████████████████] 100% (Live on Railway)`
 
 ---
 
@@ -33,7 +33,7 @@ This engine was built using **First Principles Engineering**, tackling one criti
 - **Frontend:** HTML5, CSS3 (Cyberpunk Theme), Vanilla JavaScript
 - **Backend:** Node.js (Express)
 - **Compilers:** GCC (`g++`), Python 3 (`python3`)
-- **Infrastructure:** Docker (Debian Slim), REST API
+- **Infrastructure:** Docker (Debian Slim), REST API, Railway (Cloud)
 
 ---
 
@@ -138,12 +138,12 @@ curl -X POST http://localhost:5050/run \
 * [x] **Ticket #005:** Python Support (The Polyglot)
 * [x] **Ticket #006:** Frontend Control Panel (HTML/JS)
 * [x] **Ticket #007:** Docker Containerization (Isolation)
-* [ ] **Ticket #008:** Cloud Deployment (Render/Railway)
+* [x] **Ticket #008:** Cloud Deployment (Railway)
 * [ ] **Ticket #009:** PostgreSQL Database Integration
 
 ---
 
-## ⚠️ Security Note
+## ⚠️ Security Note:
 
 While Docker adds a layer of isolation, this engine executes arbitrary code. **For production deployment**, ensure you set memory limits (`--memory=512m`) and CPU quotas in your Docker run command to prevent resource exhaustion attacks.
 
@@ -151,5 +151,7 @@ While Docker adds a layer of isolation, this engine executes arbitrary code. **F
 
 ### 👨‍💻 Author
 Built by **Saad Mehmood Athar** as a Deep Engineering Project.
+
+```
 
 ```

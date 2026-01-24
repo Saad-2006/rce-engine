@@ -36,6 +36,7 @@ This engine was built using **First Principles Engineering**, tackling one criti
 ---
 
 ## 📂 Project Structure
+```text
 /RCE-Engine
 │── server.js          (Main Backend Entry)
 │── /api
@@ -46,7 +47,7 @@ This engine was built using **First Principles Engineering**, tackling one criti
 │   └── style.css      (Cyberpunk Design)
 └── /temp              (Auto-generated execution artifacts)
 ---
-
+```
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
@@ -117,7 +118,7 @@ curl -X POST http://localhost:5050/run \
 ```
 ---
 ## 🔮 Roadmap (Completed Tickets)
-
+```
 * [x] **Ticket #001:** File Generator
 * [x] **Ticket #002:** C++ Execution Logic
 * [x] **Ticket #003:** Automated Garbage Collection (The Janitor)
@@ -125,6 +126,7 @@ curl -X POST http://localhost:5050/run \
 * [x] **Ticket #005:** Python Support (The Polyglot)
 * [x] **Ticket #006:** Frontend Control Panel (HTML/JS)
 * [ ] **Ticket #007:** Docker Containerization (Isolation)
+```
 ---
 
 ## ⚠️ Security Note
@@ -135,7 +137,3 @@ This project executes code directly on the host machine (`child_process`). It is
 
 ### 👨‍💻 Author
 Built by **Saad Mehmood Athar** as a Deep Engineering Project.
-
-```
-
-```

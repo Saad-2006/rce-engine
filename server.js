@@ -16,12 +16,16 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, 'client')));
 
 // Log all incoming requests (debugging purposes only)
 app.use((req, res, next) => {
     console.log(`📨 ${req.method} ${req.path} from ${req.headers.origin || 'file://'}`);
     next();
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 
 app.post('/run', async (req, res) => {

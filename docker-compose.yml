@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # The Database Service 
+  db:
+    image: postgres:13-alpine  # Lightweight version
+    container_name: rce-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: rcedb
+    ports:
+      - "5432:5432" 
+      # Expose DB port to local machine 
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+  # Application Service 
+  app:
+    build: .             # Build from the Dockerfile in this directory
+    container_name: rce-engine
+    restart: always
+    ports:
+      - "5050:5050"      # Mapping the app port
+    environment:
+      - DB_HOST=db       # 'db' is the service name (defined above)
+      - DB_USER=myuser
+      - DB_PASS=mypassword
+      - DB_NAME=rcedb
+    depends_on:
+      - db               # Wait for 'db' to start before starting App
+
+# Define the storage volume
+volumes:
+  pgdata:

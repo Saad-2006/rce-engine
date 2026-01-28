@@ -4,22 +4,18 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D%2018.0.0-brightgreen)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
-![Status](https://img.shields.io/badge/status-cloud--live-success)
+![Postgres](https://img.shields.io/badge/postgres-integrated-blue)
+![Status](https://img.shields.io/badge/status-live--production-success)
 ```
-```
-```
-> A robust, safe, and bilingual (C++ & Python) remote code execution engine built with Node.js. Now featuring a professional Cyberpunk-themed frontend, Docker containerization, and live cloud deployment.
+> A robust, safe, and bilingual (C++ & Python) remote code execution engine built with Node.js. Now featuring a professional Cyberpunk-themed frontend, persistent database storage, and a "Time Machine" history system.
+
 ---
 
-```
-
-## 🚧 Project Status: Version 2.0 (Live Production)
+## 🚧 Project Status: Version 2.2 (The Stateful Edition)
 **Backend Core:** `[████████████████████] 100% (Stable)`
-
-**Frontend UI:** `[████████████████████] 100% (Polished)`
-
+**Frontend UI:** `[████████████████████] 100% (History Tab Added)`
 **Cloud Deployment:** `[████████████████████] 100% (Live on Railway)`
-
+**Persistence:** `[████████████████████] 100% (PostgreSQL Integrated)`
 
 ---
 
@@ -31,15 +27,17 @@ This engine was built using **First Principles Engineering**, tackling one criti
 - **✅ The "Janitor" (Garbage Collection):** Automated cleanup logic that purges `.cpp`, `.py`, and `.out` files immediately after execution.
 - **✅ The "Polyglot" (Multi-Language):** Strategy Pattern implementation to support both **C++** (Compiled) and **Python** (Interpreted).
 - **✅ The "Fortress" (Docker):** Full containerization that bundles Node.js, GCC, and Python 3 into a portable Linux environment.
-- **✅ Real-Time UI:** A specialized, VS Code-inspired frontend for writing and running code directly in the browser.
+- **✅ The "Librarian" (Database):** Integration with **PostgreSQL** to permanently store every code execution and output log.
+- **✅ The "Time Machine" (History UI):** A Cyberpunk-style slide-out panel that lets users restore and rerun past code snippets instantly.
 
 ---
 
 ## 🛠️ Tech Stack
 - **Frontend:** HTML5, CSS3 (Cyberpunk Theme), Vanilla JavaScript
 - **Backend:** Node.js (Express)
+- **Database:** PostgreSQL (v13+), `pg` driver
 - **Compilers:** GCC (`g++`), Python 3 (`python3`)
-- **Infrastructure:** Docker (Debian Slim), REST API, Railway (Cloud)
+- **Infrastructure:** Docker, Docker Compose, Railway (Cloud)
 
 ---
 
@@ -47,13 +45,14 @@ This engine was built using **First Principles Engineering**, tackling one criti
 ```text
 /RCE-Engine
 │── Dockerfile         (Container Recipe)
-│── .dockerignore      (Build Optimization)
-│── server.js          (Main Backend Entry & Static File Server)
+│── docker-compose.yml (Orchestration for App + DB)
+│── server.js          (Main Backend Entry & API)
+│── db.js              (PostgreSQL Connection Pool)
 │── /api
 │   └── compiler.js    (Compilation & Execution Logic)
 │── /client
 │   ├── index.html     (Frontend UI)
-│   ├── script.js      (Frontend Logic)
+│   ├── main.js        (Frontend Logic & History System)
 │   └── style.css      (Cyberpunk Design)
 └── /temp              (Auto-generated execution artifacts)
 
@@ -63,32 +62,26 @@ This engine was built using **First Principles Engineering**, tackling one criti
 
 ## 🚀 Getting Started
 
-### Option A: Running with Docker (Recommended)
+### Option A: Running with Docker Compose (Recommended)
 
-This method guarantees the environment matches production (Cloud) exactly.
+This method spins up both the **Node.js App** and the **PostgreSQL Database** in a private network automatically.
 
-1. **Build the Image**
+1. **Start the Orchestra**
 ```bash
-docker build -t rce-engine .
+docker-compose up --build
 
 ```
 
 
-2. **Run the Container**
-```bash
-docker run -p 5050:5050 rce-engine
-
-```
-
-
-3. **Open the App**
+2. **Access the App**
 Visit `http://localhost:5050` in your browser.
+*Note: The database will automatically initialize on port 5432.*
 
 ---
 
-### Option B: Running Locally (Development)
+### Option B: Running Locally (Manual)
 
-Use this if you don't have Docker installed.
+Use this if you have Node.js and a local Postgres instance installed.
 
 1. **Prerequisites**
 Ensure you have compilers installed:
@@ -108,30 +101,34 @@ npm install
 ```
 
 
-3. **Run the Server**
+3. **Database Config**
+Create a `.env` file or set environment variables (`DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `DB_PORT`).
+4. **Run the Server**
 ```bash
 node server.js
 
 ```
 
 
-4. **Launch**
-Visit `http://localhost:5050` in your browser.
 
 ---
 
-## 📡 API Usage (Headless Mode)
+## 📡 API Usage
 
-**Endpoint:** `POST /run`
+**Execute Code:**
+`POST /run`
 
-**Execute C++ Code:**
-
-```bash
-curl -X POST http://localhost:5050/run \
--H "Content-Type: application/json" \
--d '{"language":"cpp", "code":"#include <iostream>\nint main() { std::cout << \"Hello from Docker\"; return 0; }"}'
+```json
+{
+  "language": "cpp",
+  "code": "#include <iostream>\nint main() { std::cout << \"Hello DB\"; }"
+}
 
 ```
+
+**View History:**
+`GET /history`
+*Returns the last 10 executions stored in the PostgreSQL database.*
 
 ---
 
@@ -145,11 +142,12 @@ curl -X POST http://localhost:5050/run \
 * [x] **Ticket #006:** Frontend Control Panel (HTML/JS)
 * [x] **Ticket #007:** Docker Containerization (Isolation)
 * [x] **Ticket #008:** Cloud Deployment (Railway)
-* [ ] **Ticket #009:** PostgreSQL Database Integration
+* [x] **Ticket #009:** PostgreSQL Database Integration (The Librarian)
+* [x] **Ticket #010:** Frontend History & Restoration UI (The Time Machine)
 
 ---
 
-## ⚠️ Security Note:
+## ⚠️ Security Note
 
 While Docker adds a layer of isolation, this engine executes arbitrary code. **For production deployment**, ensure you set memory limits (`--memory=512m`) and CPU quotas in your Docker run command to prevent resource exhaustion attacks.
 
@@ -157,6 +155,5 @@ While Docker adds a layer of isolation, this engine executes arbitrary code. **F
 
 ### 👨‍💻 Author
 Built by **Saad Mehmood Athar** as a Deep Engineering Project.
-
 ```
 ```

@@ -1,5 +1,3 @@
-Here is the completely updated `README.md`.
-
 ```markdown
 # 🚀 Remote Code Execution (RCE) Engine
 

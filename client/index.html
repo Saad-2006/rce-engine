@@ -9,7 +9,10 @@
 <body>
 
     <div class="container">
-        <div id="heading">RCE ENGINE</div>
+        <div id="heading">
+            RCE ENGINE
+            <button id="history-btn" class="glow-btn" onclick="toggleHistory()">History</button>
+        </div>
 
         <select id="languageSelector">
             <option value="cpp">C++ (G++)</option>
@@ -28,7 +31,16 @@ int main() {
         <div id="output">Output will appear here...</div>
     </div>
 
-    <script src="script.js"></script>
+    <div id="history-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>LOGS</h3>
+            <button onclick="toggleHistory()" class="close-btn">✖</button>
+        </div>
+        <div id="history-list" class="history-content">
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 
 </body>
 </html>

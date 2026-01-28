@@ -110,6 +110,8 @@ textarea:focus {
     border-radius: 4px;
     white-space: pre-wrap;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    font-family: 'Consolas', 'Courier New', monospace; 
+    white-space: pre-wrap; 
 }
 
 .success { color: #00ff9d !important; border-left-color: #00ff9d !important; }

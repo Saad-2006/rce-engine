@@ -59,7 +59,7 @@ app.post('/run', async (req, res) => {
         // 1. Convert to String explicitly
         // 2. Remove \r (Carriage Returns) which break JSON on Windows/Mac
         // 3. Trim whitespace
-        const cleanOutput = rawOutput.toString().replace(/\r/g, "").trim();
+        const cleanOutput = rawOutput.toString().replace(/\r/g, "");
 
         console.log("[3] Sending Clean Output:", cleanOutput);
         // Non-blocking; save to db

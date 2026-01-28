@@ -98,6 +98,26 @@ textarea:focus {
     transform: none;
 }
 
+#history-btn {
+    background: transparent;
+    border: 2px solid #00ff88; 
+    color: #00ff88;
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-left: 15px; 
+}
+
+#history-btn:hover {
+    background: #00ff88;
+    color: #1e1e1e;  
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+}
+
 #output {
     background-color: #101010;
     border-left: 5px solid #555;
@@ -116,3 +136,94 @@ textarea:focus {
 
 .success { color: #00ff9d !important; border-left-color: #00ff9d !important; }
 .error { color: #ff4d4d !important; border-left-color: #ff4d4d !important; }
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background: rgba(10, 10, 15, 0.95); 
+    border-left: 2px solid #00ff88;
+    box-shadow: -10px 0 30px rgba(0, 255, 136, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.2, 0.0, 0.2, 1);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+
+}
+
+.sidebar.active{
+    transform: translateX(0);
+}
+
+.sidebar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.sidebar-header h3{
+    margin: 0;
+    color: #00ff88;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #ff0055;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.history-content {
+    flex: 1;
+    overflow-y: auto; 
+    padding: 15px;
+}
+
+.history-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-card:hover {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.05);
+    transform: translateX(-5px); 
+}
+
+.history-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.history-lang {
+    color: #00d8ff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.history-snippet {
+    font-family: 'Consolas', monospace;
+    color: #ccc;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* appends '...' for long history */
+}

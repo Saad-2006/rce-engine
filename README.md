@@ -1,12 +1,8 @@
+Here is the completely updated `README.md`.
+
 ```markdown
 # 🚀 Remote Code Execution (RCE) Engine
-```
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Node](https://img.shields.io/badge/node-%3E%3D%2018.0.0-brightgreen)
-![Docker](https://img.shields.io/badge/docker-ready-blue)
-![Postgres](https://img.shields.io/badge/postgres-integrated-blue)
-![Status](https://img.shields.io/badge/status-live--production-success)
-```
+
 > A robust, safe, and bilingual (C++ & Python) remote code execution engine built with Node.js. Now featuring a professional Cyberpunk-themed frontend, persistent database storage, and a "Time Machine" history system.
 
 ---
@@ -154,6 +150,9 @@ While Docker adds a layer of isolation, this engine executes arbitrary code. **F
 ---
 
 ### 👨‍💻 Author
+
 Built by **Saad Mehmood Athar** as a Deep Engineering Project.
+
 ```
+
 ```
